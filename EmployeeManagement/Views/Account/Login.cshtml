@@ -1,0 +1,74 @@
+﻿@model LoginViewModel
+
+@{
+    ViewBag.Title = "Login User";
+}
+
+<div class="row text-white">
+    <div class="col-md-6 ">
+        <h1 >User Login</h1>
+        <hr />
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" style="background:rgba(0,0,0,.2);" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" style="background:rgba(0,0,0,.2);color:white;" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="RememberMe"><input asp-for="RememberMe" style="background:rgba(0,0,0,.2);color:white;" /> @Html.DisplayNameFor(m=>m.RememberMe)</label>
+                </div>
+            </div>
+            <br />
+            <center>
+                <button type="submit" class="btn btn-primary">
+                    <span class="material-symbols-outlined">
+                        login
+                    </span>
+                </button>
+                <a asp-action="index" asp-controller="home" class="btn btn-secondary">
+                    <span class="material-symbols-outlined">
+                        undo
+                    </span>
+                </a>
+            </center>
+            <div >
+                <a class="text-danger" asp-action="ForgotPassword">Forgot Password?</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6 text-dark">
+        <h1>External Logins</h1>
+        <hr />
+        @{
+            if (Model.ExternalLogins.Count == 0)
+            {
+                <div>No External Logins</div>
+            }
+            else
+            {
+                <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                    <div>
+                        @foreach (var provider in Model.ExternalLogins.ToList())
+                        {
+                            <button type="submit" value="@provider.Name" name="provider" class="btn btn-dark"
+                                    style="width:auto;background:rgba(0,0,255,.3);" title="Login using @provider.DisplayName">
+                                <i class="fa-brands fa-@(provider.DisplayName.ToLower())"></i>
+                            </button>
+                        }
+                    </div>
+                </form>
+            }
+        }
+    </div>
+    
+</div>

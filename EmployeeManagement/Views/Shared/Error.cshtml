@@ -1,0 +1,29 @@
+﻿@model RegisterViewModel
+
+@if (ViewBag.ErrorTitle == null)
+{
+    <h3>
+        An Error Occured while processing your request.
+        the support team is notified and we are working on th fix.
+    </h3>
+    <h5>Please contact us on info@gmail.com</h5>
+    <hr />
+}
+else
+{
+    @if (!string.IsNullOrEmpty(Model.ConfirmLink))
+    {
+        <center>
+            <h1 class="text-danger">@ViewBag.ErrorTitle</h1>
+            <h5 class="text-danger">@ViewBag.ErrorMessage <a href="Model.ConfirmLink" target="_blank" class="text-primary">Please click here to confirm</a></h5>
+        </center>
+    }
+    else
+    {
+        <center>
+            <h1 class="text-danger">@ViewBag.ErrorTitle</h1>
+            <h5 class="text-danger">@ViewBag.ErrorMessage</h5>
+            <img src="~/images/error.jpeg" style="height:400px;width:auto;" />
+        </center>
+    }
+}
